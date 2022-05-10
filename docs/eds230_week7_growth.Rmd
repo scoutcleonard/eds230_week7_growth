@@ -1,0 +1,25 @@
+---
+title: 'EDS 230/ESM232: Assignment 7: Growth'
+author: "Bri Baker, Ian Brunjes, Scout Leonard"
+date: '`r format(Sys.time(), "%m/%d/%Y")`'
+output: 
+  pdf_document:
+    toc: false
+    number_sections: no
+header-includes:
+  - \setlength{\parindent}{1em}
+  - \usepackage{float}
+---
+
+# Load Libraries
+
+```{r load libraries, message = FALSE}
+library(here)
+```
+
+# Source R Scripts
+
+```{r source scripts}
+
+```
+
