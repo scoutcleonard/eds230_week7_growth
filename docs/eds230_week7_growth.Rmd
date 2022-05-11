@@ -21,6 +21,8 @@ library(here)
 
 ```{r source scripts}
 
+source(here("R", "growth_function.R")) # not done yet, just structure
+
 ```
 
 # Implement Model
