@@ -201,10 +201,16 @@ results_df = cbind.data.frame(
 )
 
 # For max values, threshold then r have most impact
-ggplot(results_df, aes(x = thresh, y = max, col = r))+geom_point()+labs(y="Max Carbon Units of Forest", x="Canopy Threshold")
+ggplot(results_df, aes(x = thresh, y = max, col = r)) +
+  geom_point() +
+  labs(y = "Max Carbon Units of Forest",
+       x = "Canopy Threshold")
 
 # For mean values, r then threshold have most impact
-ggplot(results_df, aes(x = r, y = mean, col = thresh))+geom_point()+labs(y="Mean Carbon Units of Forest", x="Initial growth rate (r)")
+ggplot(results_df, aes(x = r, y = mean, col = thresh)) +
+  geom_point() +
+  labs(y = "Mean Carbon Units of Forest", 
+       x = "Initial growth rate (r)")
 ```
 
 
