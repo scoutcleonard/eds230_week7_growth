@@ -18,12 +18,13 @@ library(here)
 library(sensitivity)
 library(tidyverse)
 library(pse)
+library(deSolve)
 ```
 
 # Source R Scripts
 
 ```{r source scripts}
-source(here("R", "growth_function.R"))
+source(here("R", "dgrowth.R"))
 ```
 
 
