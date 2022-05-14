@@ -62,7 +62,7 @@ tm = seq(1, 300, 1) # model run time: 300 years
 Cinit = 10 # initial kilograms of Carbon
 
 gps = list(
-  K = 250, # carrying capacityL kg of Carbon
+  K = 250, # carrying capacity kg of Carbon
   r = 0.01, # exponential rate of growth before canopy closure
   g = 2, # linear growth after canopy closure kilograms/year
   thresh = 50 # canopy closure threshold (kilograms of carbon)
