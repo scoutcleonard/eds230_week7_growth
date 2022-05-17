@@ -19,6 +19,7 @@ library(here)
 library(sensitivity)
 library(tidyverse)
 library(deSolve)
+library(patchwork)
 ```
 
 **Consider the following model of forest growth (where forest size in measured in units of carbon (C)):**
@@ -265,7 +266,8 @@ results_df = cbind.data.frame(
 ggplot(results_df, aes(x = thresh, y = max, col = r)) +
   geom_point() +
   labs(y = "Max Carbon Units of Forest",
-       x = "Canopy Threshold")
+       x = "Canopy Threshold") +
+  theme_minimal()
 
 # For mean values, r then threshold have most impact
 ggplot(results_df, aes(x = r, y = mean, col = thresh)) +
@@ -277,7 +279,50 @@ ggplot(results_df, aes(x = r, y = mean, col = thresh)) +
 
 In 2-3 sentences, discuss what the results of your simulation might mean for climate change impacts on forest growth (e.g think about what parameters climate change might influence ). (25% - we look for reasonable discussion that uses the results from your analysis and give extra points for discussions that offer particularly creative or insightful commentary)
 
-_scout just taking a stab:_
+Submit R markdown with model implementation, graphs and sensitivity analysis and R file with your model (Final 10% for well-organized, clearly documented R markdown)
+
+_scout just taking a stab(NOTE I know SO little about forest growth and carbon storage):_
+
+```{r mean plots}
+g_mean <- ggplot(results_df, aes(x = g, y = mean)) +
+  geom_point() +
+  theme_minimal()
+
+thresh_mean <- ggplot(results_df, aes(x = thresh, y = mean)) +
+  geom_point() +
+  theme_minimal()
+
+r_mean <- ggplot(results_df, aes(x = r, y = mean)) +
+  geom_point() +
+  theme_minimal()
+
+K_mean <- ggplot(results_df, aes(x = K, y = mean)) +
+  geom_point() +
+  theme_minimal()
+
+(g_mean + thresh_mean) / (r_mean + K_mean)
+```
+
+```{r max plots}
+g_max <- ggplot(results_df, aes(x = g, y = max)) +
+  geom_point() +
+  theme_minimal()
+
+thresh_max <- ggplot(results_df, aes(x = thresh, y = max)) +
+  geom_point() +
+  theme_minimal()
+
+r_max <- ggplot(results_df, aes(x = r, y = max)) +
+  geom_point() +
+  theme_minimal()
+
+K_max <- ggplot(results_df, aes(x = K, y = max)) +
+  geom_point() +
+  theme_minimal()
+
+(g_max + thresh_max) / (r_max + K_max)
+```
+
 - i think climate change will 
   - 1.) decrease forest size 
   - 2.) increase (?) initial exponential growth rate 
@@ -289,8 +334,4 @@ From our model output mean carbon is sensitive to:
 - r (exponential growth rate)
 
 and max carbon is sensitive to:
-- canopy closure threshold 
-
-.... so climate change will decrease mean carbon output and max carbon will stay the same? 
-
-Submit R markdown with model implementation, graphs and sensitivity analysis and R file with your model (Final 10% for well-organized, clearly documented R markdown)
+- canopy closure threshold and r
