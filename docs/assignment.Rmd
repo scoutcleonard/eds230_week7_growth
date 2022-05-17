@@ -285,6 +285,12 @@ _scout just taking a stab:_
   - 4.) a decreased carrying capacity 
   - 5.) canopy closure... the same? 
   
-I think the CC's influence on
+From our model output mean carbon is sensitive to:
+- r (exponential growth rate)
+
+and max carbon is sensitive to:
+- canopy closure threshold 
+
+.... so climate change will decrease mean carbon output and max carbon will stay the same? 
 
 Submit R markdown with model implementation, graphs and sensitivity analysis and R file with your model (Final 10% for well-organized, clearly documented R markdown)
