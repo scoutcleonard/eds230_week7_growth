@@ -252,6 +252,30 @@ print(sens_carbon_mean)
 ```
 
 ```{r}
+#add index column and param column to T df 
+sens_carbon_max$T$index <- 'T' 
+
+sens_carbon_max_T <- as.data.frame(sens_carbon_max$T) %>% 
+  rownames_to_column("params") %>% 
+  select("params", "original", "index")
+
+#add index column and param column to S df 
+sens_carbon_max$S$index <- 'S'
+
+sens_carbon_max_S <- as.data.frame(sens_carbon_max$S)  %>% 
+  rownames_to_column("params") %>% 
+  select("params", "original", "index")
+
+index_combined <- rbind(sens_carbon_max_T, sens_carbon_max_S) 
+
+ggplot(data = index_combined, aes(x = params, y = original, fill = index)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  coord_flip() 
+```
+
+
+```{r}
 # More plotting
 # Make data frame for plotting
 results_df = cbind.data.frame(
@@ -277,61 +301,8 @@ ggplot(results_df, aes(x = r, y = mean, col = thresh)) +
   theme_minimal()
 ```
 
-In 2-3 sentences, discuss what the results of your simulation might mean for climate change impacts on forest growth (e.g think about what parameters climate change might influence ). (25% - we look for reasonable discussion that uses the results from your analysis and give extra points for discussions that offer particularly creative or insightful commentary)
+\noindent In 2-3 sentences, discuss what the results of your simulation might mean for climate change impacts on forest growth (e.g think about what parameters climate change might influence ). (25% - we look for reasonable discussion that uses the results from your analysis and give extra points for discussions that offer particularly creative or insightful commentary)
 
-Submit R markdown with model implementation, graphs and sensitivity analysis and R file with your model (Final 10% for well-organized, clearly documented R markdown)
+\noindent Submit R markdown with model implementation, graphs and sensitivity analysis and R file with your model (Final 10% for well-organized, clearly documented R markdown)
 
-_scout just taking a stab(NOTE I know SO little about forest growth and carbon storage):_
-
-```{r mean plots}
-g_mean <- ggplot(results_df, aes(x = g, y = mean)) +
-  geom_point() +
-  theme_minimal()
-
-thresh_mean <- ggplot(results_df, aes(x = thresh, y = mean)) +
-  geom_point() +
-  theme_minimal()
-
-r_mean <- ggplot(results_df, aes(x = r, y = mean)) +
-  geom_point() +
-  theme_minimal()
-
-K_mean <- ggplot(results_df, aes(x = K, y = mean)) +
-  geom_point() +
-  theme_minimal()
-
-(g_mean + thresh_mean) / (r_mean + K_mean)
-```
-
-```{r max plots}
-g_max <- ggplot(results_df, aes(x = g, y = max)) +
-  geom_point() +
-  theme_minimal()
-
-thresh_max <- ggplot(results_df, aes(x = thresh, y = max)) +
-  geom_point() +
-  theme_minimal()
-
-r_max <- ggplot(results_df, aes(x = r, y = max)) +
-  geom_point() +
-  theme_minimal()
-
-K_max <- ggplot(results_df, aes(x = K, y = max)) +
-  geom_point() +
-  theme_minimal()
-
-(g_max + thresh_max) / (r_max + K_max)
-```
-
-- i think climate change will 
-  - 1.) decrease forest size 
-  - 2.) increase (?) initial exponential growth rate 
-  - 3.) decrease linear growth rate after canopy closure and 
-  - 4.) a decreased carrying capacity 
-  - 5.) canopy closure... the same? 
-  
-From our model output mean carbon is sensitive to:
-- r (exponential growth rate)
-
-and max carbon is sensitive to:
-- canopy closure threshold and r
+We expect that climate change might increase amount of carbon available in the atmosphere. Given out model's high sensitivity to the r parameter (early exponential growth rate), it is likely that initial forest growth would be most strongly impacted. 
