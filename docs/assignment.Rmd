@@ -222,21 +222,31 @@ ggplot(tmp, aes(metric, value, col = metric)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+\noindent The next two code chunks compute the sobol inidces for each metric.
+
 ```{r}
-# Compute sobol indices for each metric
-# Max carbon
+# max carbon
 sens_carbon_max = sensitivity::tell(sens_carbon, allres$maxC)
+
+#first order indices (main effect without co-variance)
 row.names(sens_carbon_max$S) = colnames(parms)
+
+#total sensitivity index
 row.names(sens_carbon_max$T) = colnames(parms)
 
 print(sens_carbon_max)
 ```
 
 ```{r}
-# Mean carbon
+#mean carbon
 sens_carbon_mean = sensitivity::tell(sens_carbon, allres$meanC)
+
+#first order indices (main effect without co-variance)
 row.names(sens_carbon_mean$S) = colnames(parms)
+
+#total sensitivity index
 row.names(sens_carbon_mean$T) = colnames(parms)
+
 print(sens_carbon_mean)
 ```
 
