@@ -239,19 +239,6 @@ print(sens_carbon_max)
 ```
 
 ```{r}
-#mean carbon
-sens_carbon_mean = sensitivity::tell(sens_carbon, allres$meanC)
-
-#first order indices (main effect without co-variance)
-row.names(sens_carbon_mean$S) = colnames(parms)
-
-#total sensitivity index
-row.names(sens_carbon_mean$T) = colnames(parms)
-
-print(sens_carbon_mean)
-```
-
-```{r}
 #add index column and param column to T df 
 sens_carbon_max$T$index <- 'T' 
 
@@ -271,7 +258,45 @@ index_combined <- rbind(sens_carbon_max_T, sens_carbon_max_S)
 ggplot(data = index_combined, aes(x = params, y = original, fill = index)) +
   geom_bar(stat = "identity", position = "dodge") +
   theme_minimal() +
-  coord_flip() 
+  coord_flip() +
+  labs(title = "Sensitivity Measures for Maximum Forest Carbon")
+```
+
+```{r}
+#mean carbon
+sens_carbon_mean = sensitivity::tell(sens_carbon, allres$meanC)
+
+#first order indices (main effect without co-variance)
+row.names(sens_carbon_mean$S) = colnames(parms)
+
+#total sensitivity index
+row.names(sens_carbon_mean$T) = colnames(parms)
+
+print(sens_carbon_mean)
+```
+
+```{r}
+#add index column and param column to T df 
+sens_carbon_mean$T$index <- 'T' 
+
+sens_carbon_mean_T <- as.data.frame(sens_carbon_mean$T) %>% 
+  rownames_to_column("params") %>% 
+  select("params", "original", "index")
+
+#add index column and param column to S df 
+sens_carbon_mean$S$index <- 'S'
+
+sens_carbon_mean_S <- as.data.frame(sens_carbon_mean$S)  %>% 
+  rownames_to_column("params") %>% 
+  select("params", "original", "index")
+
+index_combined <- rbind(sens_carbon_mean_T, sens_carbon_mean_S) 
+
+ggplot(data = index_combined, aes(x = params, y = original, fill = index)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  coord_flip() +
+  labs(title = "Sensitivity Measures for Mean Forest Carbon")
 ```
 
 
