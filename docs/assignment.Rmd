@@ -305,4 +305,7 @@ ggplot(results_df, aes(x = r, y = mean, col = thresh)) +
 
 \noindent Submit R markdown with model implementation, graphs and sensitivity analysis and R file with your model (Final 10% for well-organized, clearly documented R markdown)
 
-We expect that climate change might increase amount of carbon available in the atmosphere. Given out model's high sensitivity to the r parameter (early exponential growth rate), it is likely that initial forest growth would be most strongly impacted. 
+While some of the factors of forest growth are dependent more on the biotic properties of the forest (threshold and linear growth rate in particular), climate is still likely to influence forest growth dynamics. The parameters that climate is likely to have higher effects on are early exponential growth rate (r) and carrying capacity, although the particulars of the forcings on these parameters will be locality dependent (different places will have different changes in precipitation and temperature which can limit resource availability, particularly water), although higher atmospheric carbon will have a positive effect on r globally.
+
+Our model is particularly sensitive to changes in the r parameter, so climate change is likely to have strong effects on forest growth.
+
