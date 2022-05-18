@@ -203,7 +203,8 @@ allres = allresults %>% map_dfr(`[`,c("maxC","meanC"))
 ```
 
 
-```{r sensitivity graphs, fig.caption = "Box plot of the sobol sensitivity analysis results distribution of mean forest carbon values and maximum forest carbon values."}
+```{r sensitivity graphs, fig.cap = "Box plot of the sobol sensitivity analysis results distribution of mean forest carbon values and maximum forest carbon values."}
+
 # plot results
 tmp = allres %>%
   gather(key = "metric",
@@ -233,10 +234,11 @@ row.names(sens_carbon_max$T) = colnames(parms)
 print(sens_carbon_max)
 ```
 
-```{r fig.caption = "Sensitivity measures for maximum forest carbon."}
+```{r fig.cap = "Sensitivity measures for maximum forest carbon."}
 #add index column and param column to T df 
 sens_carbon_max$T$index <- 'T' 
 
+#create column from index and add understandable names to param variables for plotting
 sens_carbon_max_T <- as.data.frame(sens_carbon_max$T) %>% 
   rownames_to_column("params") %>% 
   select("params", "original", "index") %>% 
@@ -283,7 +285,7 @@ row.names(sens_carbon_mean$T) = colnames(parms)
 print(sens_carbon_mean)
 ```
 
-```{r fig.caption = "Sensitivity measures for mean forest carbon."}
+```{r fig.cap = "Sensitivity measures for mean forest carbon."}
 #add index column and param column to T df 
 sens_carbon_mean$T$index <- 'T' 
 
