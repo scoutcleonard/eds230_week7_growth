@@ -214,7 +214,8 @@ ggplot(tmp, aes(metric, value, col = metric)) +
   theme_minimal() +
   labs(y = "Forest Size (kilograms of carbon)",
        title = "300 Year Growth Model Sobol Sensitivity Results") +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_color_manual(values = c("#b75347", "#224b5e"))
 ```
 
 \noindent Finally, we computed the first order and total sensitivity Sobol indices for both max and mean forest carbon metrics.
@@ -247,6 +248,7 @@ sens_carbon_max_T <- as.data.frame(sens_carbon_max$T) %>%
 #add index column and param column to S df 
 sens_carbon_max$S$index <- 'S'
 
+#create column from index and add understandable names to param variables for plotting
 sens_carbon_max_S <- as.data.frame(sens_carbon_max$S)  %>% 
   rownames_to_column("params") %>% 
   select("params", "original", "index") %>% 
@@ -255,14 +257,17 @@ sens_carbon_max_S <- as.data.frame(sens_carbon_max$S)  %>%
                             params == "r" ~ "Exponential Growth Rate",
                             params == "g" ~ "Linear Growth Rate"))
 
+#put together S and T dataframes 
 index_combined <- rbind(sens_carbon_max_T, sens_carbon_max_S) 
 
+#plot comparison of S and T parameter sensitivity measures 
 ggplot(data = index_combined, aes(x = params, y = original, fill = index)) +
   geom_bar(stat = "identity", position = "dodge") +
   theme_minimal() +
   coord_flip() +
   labs(title = "Sensitivity Measures for Maximum Forest Carbon",
-       x = "Parameters")
+       x = "Parameters") +
+  scale_fill_manual(values = c("#b75347", "#224b5e"))
 ```
 
 ```{r}
@@ -293,6 +298,7 @@ sens_carbon_mean_T <- as.data.frame(sens_carbon_mean$T) %>%
 #add index column and param column to S df 
 sens_carbon_mean$S$index <- 'S'
 
+#create column from index and add understandable names to param variables for plotting
 sens_carbon_mean_S <- as.data.frame(sens_carbon_mean$S)  %>% 
   rownames_to_column("params") %>% 
   select("params", "original", "index")%>% 
@@ -301,14 +307,17 @@ sens_carbon_mean_S <- as.data.frame(sens_carbon_mean$S)  %>%
                             params == "r" ~ "Exponential Growth Rate",
                             params == "g" ~ "Linear Growth Rate"))
 
+#put together S and T dataframes 
 index_combined <- rbind(sens_carbon_mean_T, sens_carbon_mean_S) 
 
+#plot comparison of S and T parameter sensitivity measures 
 ggplot(data = index_combined, aes(x = params, y = original, fill = index)) +
   geom_bar(stat = "identity", position = "dodge") +
   theme_minimal() +
   coord_flip() +
   labs(title = "Sensitivity Measures for Mean Forest Carbon",
-       x = "Parameters")
+       x = "Parameters") +
+  scale_fill_manual(values = c("#b75347", "#224b5e"))
 ```
 
 # Interpretation: Climate and Forest Carbon
