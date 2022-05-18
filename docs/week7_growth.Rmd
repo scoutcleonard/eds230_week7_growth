@@ -232,20 +232,28 @@ row.names(sens_carbon_max$T) = colnames(parms)
 print(sens_carbon_max)
 ```
 
-```{r}
+```{r fig.caption = "Sensitivity measures for maximum forest carbon."}
 #add index column and param column to T df 
 sens_carbon_max$T$index <- 'T' 
 
 sens_carbon_max_T <- as.data.frame(sens_carbon_max$T) %>% 
   rownames_to_column("params") %>% 
-  select("params", "original", "index")
+  select("params", "original", "index") %>% 
+  mutate(params = case_when(params == "K" ~ "Carrying capacity",
+                            params == "thresh" ~ "Canopy Closure Threshold",
+                            params == "r" ~ "Exponential Growth Rate",
+                            params == "g" ~ "Linear Growth Rate"))
 
 #add index column and param column to S df 
 sens_carbon_max$S$index <- 'S'
 
 sens_carbon_max_S <- as.data.frame(sens_carbon_max$S)  %>% 
   rownames_to_column("params") %>% 
-  select("params", "original", "index")
+  select("params", "original", "index") %>% 
+  mutate(params = case_when(params == "K" ~ "Carrying capacity",
+                            params == "thresh" ~ "Canopy Closure Threshold",
+                            params == "r" ~ "Exponential Growth Rate",
+                            params == "g" ~ "Linear Growth Rate"))
 
 index_combined <- rbind(sens_carbon_max_T, sens_carbon_max_S) 
 
@@ -253,7 +261,8 @@ ggplot(data = index_combined, aes(x = params, y = original, fill = index)) +
   geom_bar(stat = "identity", position = "dodge") +
   theme_minimal() +
   coord_flip() +
-  labs(title = "Sensitivity Measures for Maximum Forest Carbon")
+  labs(title = "Sensitivity Measures for Maximum Forest Carbon",
+       x = "Parameters")
 ```
 
 ```{r}
@@ -269,20 +278,28 @@ row.names(sens_carbon_mean$T) = colnames(parms)
 print(sens_carbon_mean)
 ```
 
-```{r}
+```{r fig.caption = "Sensitivity measures for mean forest carbon."}
 #add index column and param column to T df 
 sens_carbon_mean$T$index <- 'T' 
 
 sens_carbon_mean_T <- as.data.frame(sens_carbon_mean$T) %>% 
   rownames_to_column("params") %>% 
-  select("params", "original", "index")
+  select("params", "original", "index") %>% 
+  mutate(params = case_when(params == "K" ~ "Carrying capacity",
+                            params == "thresh" ~ "Canopy Closure Threshold",
+                            params == "r" ~ "Exponential Growth Rate",
+                            params == "g" ~ "Linear Growth Rate"))
 
 #add index column and param column to S df 
 sens_carbon_mean$S$index <- 'S'
 
 sens_carbon_mean_S <- as.data.frame(sens_carbon_mean$S)  %>% 
   rownames_to_column("params") %>% 
-  select("params", "original", "index")
+  select("params", "original", "index")%>% 
+  mutate(params = case_when(params == "K" ~ "Carrying capacity",
+                            params == "thresh" ~ "Canopy Closure Threshold",
+                            params == "r" ~ "Exponential Growth Rate",
+                            params == "g" ~ "Linear Growth Rate"))
 
 index_combined <- rbind(sens_carbon_mean_T, sens_carbon_mean_S) 
 
@@ -290,37 +307,11 @@ ggplot(data = index_combined, aes(x = params, y = original, fill = index)) +
   geom_bar(stat = "identity", position = "dodge") +
   theme_minimal() +
   coord_flip() +
-  labs(title = "Sensitivity Measures for Mean Forest Carbon")
+  labs(title = "Sensitivity Measures for Mean Forest Carbon",
+       x = "Parameters")
 ```
 
-
-```{r}
-# More plotting
-# Make data frame for plotting
-results_df = cbind.data.frame(
-  
-  parms,
-  mean = sens_carbon_mean$y,
-  max = sens_carbon_max$y
-  
-)
-
-# For max values, threshold then r have most impact
-ggplot(results_df, aes(x = thresh, y = max, col = r)) +
-  geom_point() +
-  labs(y = "Max Carbon Units of Forest",
-       x = "Canopy Threshold") +
-  theme_minimal()
-
-# For mean values, r then threshold have most impact
-ggplot(results_df, aes(x = r, y = mean, col = thresh)) +
-  geom_point() +
-  labs(y = "Mean Carbon Units of Forest", 
-       x = "Initial growth rate (r)") +
-  theme_minimal()
-```
-
-# Climate and Forest Carbon
+# Interpretation: Climate and Forest Carbon
 
 While some of the factors of forest growth are dependent more on the biotic properties of the forest (threshold and linear growth rate in particular), climate is still likely to influence forest growth dynamics. The parameters that climate is likely to have stronger effects on are early exponential growth rate (r) and carrying capacity (K), although the particular forcings on these parameters will be based on local climate (different places will have different changes in precipitation and temperature which limit water availability). Higher atmospheric carbon will have a positive effect on r globally.
 
